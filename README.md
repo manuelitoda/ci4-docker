@@ -11,6 +11,97 @@ Este proyecto proporciona un entorno de desarrollo completo para CodeIgniter 4 u
 - Configuración optimizada para desarrollo
 - Extensiones PHP necesarias para CodeIgniter 4
 
+## Extensiones PHP Incluidas
+
+Este entorno Docker incluye todas las extensiones PHP necesarias para el desarrollo con CodeIgniter 4. Las extensiones están compiladas directamente en la imagen Docker para garantizar compatibilidad y rendimiento óptimo.
+
+### Extensiones Core y Estándar
+- **Core**: Funcionalidades básicas de PHP
+- **standard**: Funciones estándar de PHP
+- **SPL**: Standard PHP Library
+- **Reflection**: API de reflexión para inspeccionar clases y funciones
+- **Phar**: Manejo de archivos PHP Archive
+- **tokenizer**: Análisis de tokens PHP
+- **filter**: Filtrado y validación de datos
+- **hash**: Funciones de hash criptográfico
+- **random**: Generación de números aleatorios seguros
+
+### Extensiones de Base de Datos
+- **mysqli**: Interfaz mejorada de MySQL (requerida por CodeIgniter 4)
+- **mysqlnd**: Driver nativo de MySQL
+- **PDO**: PHP Data Objects para acceso a bases de datos
+- **pdo_mysql**: Driver PDO para MySQL
+- **pdo_sqlite**: Driver PDO para SQLite
+- **sqlite3**: Soporte para SQLite 3
+
+### Extensiones de Manipulación de Datos
+- **json**: Codificación y decodificación JSON (integrada en PHP 8.3)
+- **xml**: Procesamiento de documentos XML (integrada en PHP 8.3)
+- **xmlreader**: Lectura de documentos XML
+- **xmlwriter**: Escritura de documentos XML
+- **SimpleXML**: Manipulación simple de XML
+- **dom**: Manipulación del Document Object Model
+- **libxml**: Biblioteca XML base
+
+### Extensiones de Texto y Codificación
+- **mbstring**: Manejo de cadenas multibyte (requerida por CodeIgniter 4)
+- **iconv**: Conversión de codificación de caracteres
+- **ctype**: Verificación de tipos de caracteres
+
+### Extensiones de Archivos y Compresión
+- **zip**: Creación y manipulación de archivos ZIP
+- **zlib**: Compresión y descompresión
+- **fileinfo**: Información sobre tipos de archivo
+- **exif**: Extracción de datos EXIF de imágenes
+
+### Extensiones de Red y Comunicación
+- **curl**: Cliente para transferencia de datos por URL (integrada en PHP 8.3)
+- **openssl**: Funciones de criptografía OpenSSL
+- **sodium**: Biblioteca de criptografía moderna
+
+### Extensiones de Imágenes
+- **gd**: Creación y manipulación de imágenes (requerida por CodeIgniter 4)
+
+### Extensiones de Internacionalización
+- **intl**: Funciones de internacionalización (requerida por CodeIgniter 4)
+
+### Extensiones de Sistema
+- **pcntl**: Control de procesos
+- **posix**: Funciones POSIX
+- **session**: Manejo de sesiones
+- **date**: Funciones de fecha y hora
+
+### Extensiones de Matemáticas
+- **bcmath**: Matemáticas de precisión arbitraria
+
+### Extensiones de Optimización
+- **Zend OPcache**: Cache de código de operación para mejorar el rendimiento
+
+### Verificación de Extensiones
+
+Puedes verificar que todas las extensiones estén cargadas correctamente ejecutando:
+
+```bash
+# Ver todas las extensiones cargadas
+docker-compose -f docker/docker-compose.yml exec web php -m
+
+# Verificar una extensión específica
+docker-compose -f docker/docker-compose.yml exec web php -m | grep mysqli
+
+# Ver información detallada de PHP
+docker-compose -f docker/docker-compose.yml exec web php -i
+```
+
+### Configuración de Extensiones
+
+Las extensiones están configuradas de manera óptima para desarrollo:
+- **OPcache**: Habilitado para mejorar el rendimiento
+- **Error reporting**: Configurado para mostrar todos los errores en desarrollo
+- **Memory limit**: Configurado en 256M para aplicaciones complejas
+- **Upload limits**: Configurados para archivos de hasta 50MB
+
+Todas estas extensiones se instalan automáticamente al construir la imagen Docker, sin necesidad de configuración adicional.
+
 ## Requisitos Previos
 
 - Docker Desktop instalado

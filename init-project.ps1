@@ -106,8 +106,8 @@ Write-Host ""
 Show-Success "🎉 ¡Entorno de desarrollo configurado correctamente!"
 Write-Host ""
 Write-Host "📋 Servicios disponibles:" -ForegroundColor White
-Write-Host "   🌐 Aplicación Web: http://localhost:8080" -ForegroundColor White
-Write-Host "   🗄️  phpMyAdmin: http://localhost:8081" -ForegroundColor White
+Write-Host "   🌐 Aplicación Web: http://localhost/" -ForegroundColor White
+Write-Host "   🗄️  phpMyAdmin: http://localhost:8080" -ForegroundColor White
 Write-Host "   🐬 MySQL: localhost:3306" -ForegroundColor White
 Write-Host ""
 Write-Host "🔑 Credenciales de base de datos:" -ForegroundColor White
@@ -126,7 +126,7 @@ Show-Success "¡Listo para desarrollar! 🚀"
 # Preguntar si desea abrir el navegador
 $openBrowser = Read-Host "¿Deseas abrir la aplicación en el navegador? (s/n)"
 if ($openBrowser -eq "s" -or $openBrowser -eq "S" -or $openBrowser -eq "y" -or $openBrowser -eq "Y") {
-    Start-Process "http://localhost:8080"
+    Start-Process "http://localhost/"
     Show-Message "Abriendo aplicación en el navegador..."
 }
 

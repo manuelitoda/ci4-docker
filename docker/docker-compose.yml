@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  # Servicio web con CodeIgniter 4
+  web:
+    build: .
+    container_name: ci4-web
+    ports:
+      - "80:80"
+    volumes:
+      - ..:/var/www/html
+      - ../logs:/var/log/apache2
+    environment:
+      - APACHE_RUN_USER=www
+      - APACHE_RUN_GROUP=www
+    depends_on:
+      - database
+    networks:
+      - ci4-network
+
+  # Servicio de base de datos MySQL
+  database:
+    image: mysql:8.0
+    container_name: ci4-mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ci4_database
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_USER: ci4_user
+      MYSQL_PASSWORD: ci4_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ../mysql-init:/docker-entrypoint-initdb.d
+    networks:
+      - ci4-network
+
+  # Servicio phpMyAdmin para administrar la base de datos
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: ci4-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root_password
+    depends_on:
+      - database
+    networks:
+      - ci4-network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  ci4-network:
+    driver: bridge

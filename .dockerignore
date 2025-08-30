@@ -63,3 +63,19 @@ composer.lock
 *.sql
 *.sqlite
 *.db
+
+# Scripts de entrada (se crean inline en Dockerfile)
+docker-entrypoint.sh
+*/docker-entrypoint.sh
+
+# Archivos de inicialización
+init-project.ps1
+init-project.sh
+
+# Directorios de construcción y temporales
+builds/
+mysql-init/
+
+# Archivos de configuración local
+env
+phpunit.xml.dist

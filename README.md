@@ -252,6 +252,38 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd intl zip redi
 
 Para habilitar HTTPS, modifica el `docker/apache-config.conf` y agrega certificados SSL.
 
+## Correcciones Implementadas
+
+### Solución al Error "exec format error"
+
+Este proyecto ha sido corregido para evitar el error `exec format error` que puede ocurrir con el script `docker-entrypoint.sh`. Las correcciones implementadas incluyen:
+
+#### 1. Script de Entrada Inline
+- El script `docker-entrypoint.sh` ahora se crea directamente dentro del `Dockerfile` usando `RUN echo`
+- Esto garantiza la codificación correcta (UTF-8) y terminaciones de línea Unix
+- Elimina problemas de compatibilidad entre sistemas operativos
+
+#### 2. Archivos Eliminados
+- Se eliminaron los archivos `docker-entrypoint.sh` duplicados de la raíz y del directorio `docker/`
+- Estos archivos ya no son necesarios ya que el script se genera automáticamente
+
+#### 3. .dockerignore Actualizado
+- Se agregaron patrones para excluir scripts de entrada externos
+- Se incluyeron exclusiones para archivos de inicialización y temporales
+- Esto previene que archivos problemáticos sean copiados al contenedor
+
+#### 4. Verificación de Funcionamiento
+- Todos los servicios (web, mysql, phpmyadmin) funcionan correctamente
+- El contenedor web se inicia sin errores de formato
+- Apache se ejecuta con la configuración adecuada
+
+### Recomendaciones para Evitar Problemas Futuros
+
+1. **No editar manualmente** el archivo `docker-entrypoint.sh` - se genera automáticamente
+2. **Usar el .dockerignore** actualizado para evitar copiar archivos problemáticos
+3. **Reconstruir la imagen** con `--no-cache` después de cambios importantes
+4. **Verificar logs** con `docker-compose logs web` si hay problemas
+
 ## Contribuir
 
 Si encuentras algún problema o tienes sugerencias de mejora, por favor:

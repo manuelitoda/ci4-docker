@@ -48,9 +48,8 @@ RUN chown -R www:www /var/www/html/writable/
 # Configurar PHP
 COPY ./php.ini /usr/local/etc/php/
 
-# Copiar script de inicialización
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+# Crear script de inicialización directamente
+RUN echo '#!/bin/bash\n\n# Script de inicialización para el contenedor CodeIgniter 4\n# Se ejecuta cada vez que el contenedor inicia\n\nset -e\n\necho "🚀 Iniciando contenedor CodeIgniter 4..."\n\n# Asegurar que los directorios writable existen\nif [ ! -d "/var/www/html/writable" ]; then\n    mkdir -p /var/www/html/writable\nfi\n\necho "📁 Configurando permisos..."\n# Configurar permisos para el directorio writable\nchown -R www:www /var/www/html/writable/\nchmod -R 755 /var/www/html/writable/\n\n# Verificar si existe el directorio public y crear enlace simbólico si es necesario\nif [ ! -L "/var/www/html/public" ] && [ -d "/var/www/html/public" ]; then\n    echo "📂 Directorio public ya existe"\nelse\n    if [ ! -e "/var/www/html/public" ]; then\n        echo "🔗 Creando enlace simbólico para public"\n        ln -sf /var/www/html/public /var/www/html/public\n    fi\nfi\n\n# Configurar permisos generales\nchown -R www:www /var/www/html\nfind /var/www/html -type d -exec chmod 755 {} \\;\nfind /var/www/html -type f -exec chmod 644 {} \\;\n\n# Permisos especiales para writable\nchmod -R 777 /var/www/html/writable\n\necho "✅ Configuración completada. Iniciando Apache..."\n\n# Ejecutar Apache en primer plano\nexec apache2-foreground' > /usr/local/bin/docker-entrypoint.sh && chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Exponer puerto 80
 EXPOSE 80

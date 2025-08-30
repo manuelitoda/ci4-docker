@@ -93,7 +93,7 @@ Edita el archivo `.env` y asegúrate de que las configuraciones de base de datos
 ```env
 CI_ENVIRONMENT = development
 
-app.baseURL = 'http://localhost:8080/'
+app.baseURL = 'http://localhost/'
 
 database.default.hostname = database
 database.default.database = ci4_database
@@ -107,8 +107,8 @@ database.default.port = 3306
 
 | Servicio | URL | Descripción |
 |----------|-----|-------------|
-| Aplicación Web | http://localhost:8080 | Tu aplicación CodeIgniter 4 |
-| phpMyAdmin | http://localhost:8081 | Administrador de base de datos |
+| Aplicación Web | http://localhost/ | Tu aplicación CodeIgniter 4 |
+| phpMyAdmin | http://localhost:8080 | Administrador de base de datos |
 | MySQL | localhost:3306 | Base de datos (acceso directo) |
 
 ## Credenciales de Base de Datos
